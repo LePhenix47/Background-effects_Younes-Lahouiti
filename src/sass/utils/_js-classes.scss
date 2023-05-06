@@ -1,0 +1,9 @@
+@use "../utils/" as *;
+
+.hide {
+    display: none !important;
+}
+
+.no-pointer-events {
+    pointer-events: none;
+}

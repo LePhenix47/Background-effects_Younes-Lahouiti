@@ -4,7 +4,7 @@
   "description": "Background Effects is a lightweight and customizable JavaScript library for creating stunning visual effects on your website background. With a variety of effects to choose from, you can enhance your website's appearance and create a unique and memorable user experience. Perfect for portfolio websites, blogs, or any website that needs a little extra flare!",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch ./style/sass/main.scss:./style/css/style.css --style compressed",
+    "sass": "sass --watch ./sass/main.scss:./dist/style.css --style compressed",
     "ts": "tsc --watch",
     "dev": "webpack --watch"
   },
