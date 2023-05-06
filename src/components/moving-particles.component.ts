@@ -1,3 +1,4 @@
+import { log } from "../utils/functions/console.functions";
 import {
   WebComponentCssReset,
   WebComponentCssVariables,
@@ -45,10 +46,22 @@ class MovingParticles extends HTMLElement {
 
   static get observedAttributes() {
     //We indicate the list of attributes that the custom element wants to observe for changes.
-    return [];
+    return ["is-playing"];
   }
 
-  connectedCallback() {}
+  connectedCallback() {
+    const webComponentDomRect: DOMRect = this.getBoundingClientRect();
+    log({ webComponentDomRect });
+  }
+
+  get isPlaying(): string {
+    const attribute = this.getAttribute("is-playing");
+    return JSON.parse(attribute);
+  }
+  set isPlaying(value: any) {
+    const stringifiedValue = value.toString();
+    this.setAttribute("is-playing", stringifiedValue);
+  }
 
   disconnectedCallback() {}
 
