@@ -1,34 +1,43 @@
-const templateElement = document.createElement("template");
+import {
+  WebComponentCssReset,
+  WebComponentCssVariables,
+  WebComponentCssDarkTheme,
+} from "../utils/variables/web-components.variables";
 
-const templateStyle = /* css */ `
+const matrixTemplateElement = document.createElement("template");
+
+const matrixCssStyle = /* css */ `
  user-component{
   isolation: isolate;
   /* Other CSS styles here */
  }
 `;
-const templateContent = /*html */ `
+const matrixTemplateHtml = /*html */ `
  <figure>
   <slot name="title" />
   <slot name="image" />
  </figure>
 `;
 
-templateElement.innerHTML = /*html */ `
+matrixTemplateElement.innerHTML = /*html */ `
   <style>
-    ${templateStyle}
+    ${WebComponentCssVariables}
+    ${WebComponentCssReset}
+    ${WebComponentCssDarkTheme}
+    ${matrixCssStyle}
   </style>
   
-  ${templateContent}
+  ${matrixTemplateHtml}
 `;
 
 class MatrixEffect extends HTMLElement {
   constructor() {
     super();
     //We create the cotnainer that holds the web component
-    const shadowRoot: ShadowRoot = this.attachShadow({ mode: "open" });
+    const shadowRoot = this.attachShadow({ mode: "open" });
 
     //We clone the template
-    const clonedTemplate: Node = templateElement.content.cloneNode(true);
+    const clonedTemplate = matrixTemplateElement.content.cloneNode(true);
     //We add it as a child of our web component
     shadowRoot.appendChild(clonedTemplate);
   }
@@ -44,7 +53,7 @@ class MatrixEffect extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
-      case "age": {
+      case "": {
         //…
         break;
       }

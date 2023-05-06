@@ -1,6 +1,8 @@
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap);
-
-:root {
+/**
+ * CSS variables for web components.
+ */
+export const WebComponentCssVariables: string = /*css */ `
+:host {
     --bg-primary: #fafafa;
     --color-primary: #323232;
     --semi-transparent-bg: hsla(0, 0%, 100%, .7);
@@ -18,25 +20,41 @@
     --scrollbar-thumb-bg-color--hover: #757575;
     --scrollbar-thumb-bg-color--active: #b0b0b0
 }
+`;
 
-.hide {
-    display: none !important
-}
+/**
+ * Dark theme CSS variables for web components.
+ */
+export const WebComponentCssDarkTheme: string = /*css */ `
 
-.screen-readers-only {
-    clip: rect(0 0 0 0);
-    -webkit-clip-path: inset(50%);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px
-}
+@media(prefers-color-scheme:dark) {
+    :host {
+        --bg-primary: #050505;
+        --color-primary: #cdcdcd;
+        --semi-transparent-bg: rgba(0, 0, 0, .7);
+        --scrollbar-track-bg-color: #000;
+        --scrollbar-thumb-bg-color: #ababab;
+        --scrollbar-thumb-bg-color--hover: #8a8a8a;
+        --scrollbar-thumb-bg-color--active: #4f4f4f;
+        --selection-bg: #838383;
+        --selection-color: #fff
+    }
 
-.no-pointer-events {
-    pointer-events: none
+    ::backdrop {
+        --backdrop-bg-color: rgba(0, 0, 0, .5);
+        --scrollbar-track-bg-color: #000;
+        --scrollbar-thumb-bg-color: #ababab;
+        --scrollbar-thumb-bg-color--hover: #8a8a8a;
+        --scrollbar-thumb-bg-color--active: #4f4f4f
+    }
 }
+`;
+
+/**
+ * CSS reset for web components.
+ */
+export const WebComponentCssReset: string = /* css */ `
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap);
 
 @media(prefers-reduced-motion:reduce) {
     *, :after, :before {
@@ -61,19 +79,6 @@
     -webkit-text-stroke: transparent;
     background-color: var(--selection-bg-color);
     color: currentColor
-}
-
-html {
-    color-scheme: dark light;
-    scroll-behavior: smooth;
-    scroll-padding-top: 50%
-}
-
-body {
-    color: var(--color-primary);
-    min-height: 100dvh;
-    overflow-x: hidden;
-    transition: background-position .6s ease-in-out, color .35s ease-in-out
 }
 
 :is(ul, ol) {
@@ -169,18 +174,6 @@ option {
     display: none !important
 }
 
-body {
-    font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif
-}
-
-h1 {
-    font-size: 48px
-}
-
-h2 {
-    font-size: 24px;
-    font-weight: 500
-}
 
 ::-webkit-scrollbar {
     background-color: var(--scrollbar-track-bg-color);
@@ -209,44 +202,4 @@ h2 {
         scrollbar-width: thin
     }
 }
-
-.header {
-    padding-block: 25px
-}
-
-.header__title {
-    text-align: center;
-    width: 100%
-}
-
-.index__canvas {
-    height: 100%;
-    position: absolute;
-    width: 100%
-}
-
-.index__effect {
-    min-height: 75dvh
-}
-
-@media(prefers-color-scheme:dark) {
-    :root {
-        --bg-primary: #050505;
-        --color-primary: #cdcdcd;
-        --semi-transparent-bg: rgba(0, 0, 0, .7);
-        --scrollbar-track-bg-color: #000;
-        --scrollbar-thumb-bg-color: #ababab;
-        --scrollbar-thumb-bg-color--hover: #8a8a8a;
-        --scrollbar-thumb-bg-color--active: #4f4f4f;
-        --selection-bg: #838383;
-        --selection-color: #fff
-    }
-
-    ::backdrop {
-        --backdrop-bg-color: rgba(0, 0, 0, .5);
-        --scrollbar-track-bg-color: #000;
-        --scrollbar-thumb-bg-color: #ababab;
-        --scrollbar-thumb-bg-color--hover: #8a8a8a;
-        --scrollbar-thumb-bg-color--active: #4f4f4f
-    }
-}
+`;
