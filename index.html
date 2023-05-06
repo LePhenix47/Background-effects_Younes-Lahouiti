@@ -6,13 +6,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="" />
+    <meta name="description"
+        content="Background Effects is a lightweight and customizable JavaScript library for creating stunning visual effects on your website background. With a variety of effects to choose from, you can enhance your website's appearance and create a unique and memorable user experience. Perfect for portfolio websites, blogs, or any website that needs a little extra flare!" />
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph     -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Home page" />
-    <meta property="og:description" content="" />
+    <meta property="og:description"
+        content="Background Effects is a lightweight and customizable JavaScript library for creating stunning visual effects on your website background. With a variety of effects to choose from, you can enhance your website's appearance and create a unique and memorable user experience. Perfect for portfolio websites, blogs, or any website that needs a little extra flare!" />
 
     <meta property="og:image" content="/profile-pic.jpg" />
     <meta property="og:image:width" content="130" />
@@ -20,7 +22,7 @@
     <meta property="og:url" content="https://younes-portfolio-dev.vercel.app/" />
 
     <!-- Title -->
-    <title>ASCII Image art</title>
+    <title>Background effects</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="./dist/style.css" />
@@ -38,10 +40,49 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title" title="ASCII image art"><span class="header__title--ascii">@$[¡¡</span> image art
+        <h1 class="header__title" title="Background effects">Background effects
         </h1>
     </header>
     <main class="index">
+        <!-- <canvas class="index__canvas"></canvas> -->
+        <section class="index__showcaser">
+
+            <div class="index__effect">
+                <!-- Web components for the different effects-->
+                <falling-particles></falling-particles>
+                <fire-effect></fire-effect>
+                <matrix-effect></matrix-effect>
+                <metaballs-effect></metaballs-effect>
+                <moving-particles></moving-particles>
+            </div>
+            <form class="index__form">
+                <fieldset class="index__fieldset">
+                    <legend class="index__legend">Choose an effect</legend>
+                    <section class="index__controls">
+                        <label class="index__label" for="effect-1">
+                            <input class="index__input" type="radio" id="effect-1" name="canvas-effect">
+                            Moving particles
+                        </label>
+                        <label class="index__label" for="effect-2">
+                            <input class="index__input" type="radio" id="effect-2" name="canvas-effect">
+                            Falling particles
+                        </label>
+                        <label class="index__label" for="effect-3">
+                            <input class="index__input" type="radio" id="effect-3" name="canvas-effect">
+                            Metaballs effect
+                        </label>
+                        <label class="index__label" for="effect-4">
+                            <input class="index__input" type="radio" id="effect-4" name="canvas-effect">
+                            Fire effect
+                        </label>
+                        <label class="index__label" for="effect-5">
+                            <input class="index__input" type="radio" id="effect-5" name="canvas-effect">
+                            Matric effect
+                        </label>
+                    </section>
+                </fieldset>
+            </form>
+        </section>
     </main>
     <footer class="footer">
         <p class="footer__paragraph">

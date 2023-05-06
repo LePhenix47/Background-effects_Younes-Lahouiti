@@ -1,3 +1,11 @@
 @use "../utils/" as *;
 
-.header {}
+.header {
+    padding-block: 25px;
+
+    &__title {
+        text-align: center;
+
+        width: 100%;
+    }
+}
