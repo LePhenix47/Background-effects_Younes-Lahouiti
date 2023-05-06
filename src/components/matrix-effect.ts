@@ -4,26 +4,26 @@ import {
   WebComponentCssDarkTheme,
 } from "../utils/variables/web-components.variables";
 
-const matrixTemplateElement = document.createElement("template");
+const matrixTemplateElement: HTMLTemplateElement =
+  document.createElement("template");
 
-const matrixCssStyle = /* css */ `
+const matrixCssStyle: string = /* css */ `
  user-component{
   isolation: isolate;
   /* Other CSS styles here */
  }
 `;
-const matrixTemplateHtml = /*html */ `
- <figure>
-  <slot name="title" />
-  <slot name="image" />
- </figure>
+const matrixTemplateHtml: string = /*html */ `
+ <canvas class="web-component__canvas"></canvas>
 `;
 
 matrixTemplateElement.innerHTML = /*html */ `
   <style>
+    /* Reset */
     ${WebComponentCssVariables}
     ${WebComponentCssReset}
     ${WebComponentCssDarkTheme}
+    /* Actual style */
     ${matrixCssStyle}
   </style>
   
@@ -34,7 +34,7 @@ class MatrixEffect extends HTMLElement {
   constructor() {
     super();
     //We create the cotnainer that holds the web component
-    const shadowRoot = this.attachShadow({ mode: "open" });
+    const shadowRoot: ShadowRoot = this.attachShadow({ mode: "open" });
 
     //We clone the template
     const clonedTemplate = matrixTemplateElement.content.cloneNode(true);

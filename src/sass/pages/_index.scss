@@ -11,5 +11,13 @@
 
     &__effect {
         min-height: 75dvh;
+        position: relative;
+    }
+
+    &__web-component {
+        position: absolute;
+
+        height: 100%;
+        width: 100%;
     }
 }
