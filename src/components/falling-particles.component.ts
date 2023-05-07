@@ -8,9 +8,11 @@ const fallingParticlesTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
 const fallingParticlesCssStyle: string = /* css */ `
- user-component{
-  isolation: isolate;
-  /* Other CSS styles here */
+ .web-component__canvas{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
  }
 `;
 const fallingParticlesTemplateHtml: string = /*html */ `
@@ -45,7 +47,16 @@ class FallingParticles extends HTMLElement {
 
   static get observedAttributes() {
     //We indicate the list of attributes that the custom element wants to observe for changes.
-    return [];
+    return ["is-playing"];
+  }
+
+  get isPlaying(): any {
+    const attribute = this.getAttribute("is-playing");
+    return JSON.parse(attribute);
+  }
+  set isPlaying(value: any) {
+    const stringifiedValue = value.toString();
+    this.setAttribute("is-playing", stringifiedValue);
   }
 
   connectedCallback() {}

@@ -42,12 +42,14 @@ html {
 body {
     min-height: 100dvh;
 
-    overflow-x: hidden;
-
+    background-color: var(--bg-primary);
     color: var(--color-primary);
 
+
+    overflow-x: hidden;
+
     transition:
-        background-position 600ms ease-in-out,
+        background-color 600ms ease-in-out,
         color 350ms ease-in-out,
     ;
 }

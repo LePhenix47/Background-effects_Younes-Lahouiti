@@ -9,9 +9,11 @@ const movingParticlesTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
 const movingParticlesCssStyle: string = /* css */ `
- user-component{
-  isolation: isolate;
-  /* Other CSS styles here */
+  .web-component__canvas{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
  }
 `;
 const movingParticlesTemplateHtml: string = /*html */ `
@@ -49,12 +51,7 @@ class MovingParticles extends HTMLElement {
     return ["is-playing"];
   }
 
-  connectedCallback() {
-    const webComponentDomRect: DOMRect = this.getBoundingClientRect();
-    log({ webComponentDomRect });
-  }
-
-  get isPlaying(): string {
+  get isPlaying(): any {
     const attribute = this.getAttribute("is-playing");
     return JSON.parse(attribute);
   }
@@ -63,11 +60,15 @@ class MovingParticles extends HTMLElement {
     this.setAttribute("is-playing", stringifiedValue);
   }
 
+  connectedCallback() {
+    const webComponentDomRect: DOMRect = this.getBoundingClientRect();
+    log({ webComponentDomRect });
+  }
   disconnectedCallback() {}
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
-      case "": {
+      case "is-playing": {
         //…
         break;
       }

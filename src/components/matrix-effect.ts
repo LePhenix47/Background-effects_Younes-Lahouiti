@@ -8,9 +8,11 @@ const matrixTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
 const matrixCssStyle: string = /* css */ `
- user-component{
-  isolation: isolate;
-  /* Other CSS styles here */
+  .web-component__canvas{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
  }
 `;
 const matrixTemplateHtml: string = /*html */ `
@@ -37,14 +39,23 @@ class MatrixEffect extends HTMLElement {
     const shadowRoot: ShadowRoot = this.attachShadow({ mode: "open" });
 
     //We clone the template
-    const clonedTemplate = matrixTemplateElement.content.cloneNode(true);
+    const clonedTemplate: Node = matrixTemplateElement.content.cloneNode(true);
     //We add it as a child of our web component
     shadowRoot.appendChild(clonedTemplate);
   }
 
   static get observedAttributes() {
     //We indicate the list of attributes that the custom element wants to observe for changes.
-    return [];
+    return ["is-playing"];
+  }
+
+  get isPlaying(): any {
+    const attribute = this.getAttribute("is-playing");
+    return JSON.parse(attribute);
+  }
+  set isPlaying(value: any) {
+    const stringifiedValue = value.toString();
+    this.setAttribute("is-playing", stringifiedValue);
   }
 
   connectedCallback() {}
