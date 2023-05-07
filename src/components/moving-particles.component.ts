@@ -15,19 +15,32 @@ const movingParticlesTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
 const movingParticlesCssStyle: string = /* css */ `
-  .web-component__canvas{
+.web-component{
+  & > canvas {
+    position: absolute;
+
+  width: 100%;
+  height: 100%;
+  filter: invert(100%) hue-rotate(180deg);
+
+  transition: filter 600ms ease-in-out;
+
+  }
+}
+
+  /* .web-component__canvas{
     position: absolute;
 
     width: 100%;
     height: 100%;
-    filter: invert(100%);
+    filter: invert(100%) hue-rotate(180deg);
 
     transition: filter 600ms ease-in-out;
- }
+ } */
 
  @media(prefers-color-scheme:dark) {
     .web-component__canvas{
-       filter: invert(0%)
+       filter: invert(0%) hue-rotate(0deg);
     }
 }
 `;
