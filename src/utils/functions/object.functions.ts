@@ -108,3 +108,27 @@ export function updateArrayOfObjectByProp(
 
   return newArray;
 }
+/**
+ * Returns a random property from the provided object.
+ *
+ * @param {object} object - The object to get a random property from.
+ *
+ * @throws {Error} If the argument is not an object.
+ *
+ * @returns {string} A random property from the provided object.
+ */
+export function getRandomPropertyFromObject(object: object): string {
+  const isNotAnObject: boolean =
+    typeof object !== "object" || Array.isArray(object);
+  if (isNotAnObject) {
+    throw new Error("Unexpected argument value passed, value is not an object");
+  }
+
+  const properties: string[] = getObjectProperties(object);
+
+  const randomIndex: number = getRandomNumber(0, properties.length - 1);
+
+  const randomProperty: string = properties[randomIndex];
+
+  return randomProperty;
+}

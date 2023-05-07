@@ -194,3 +194,75 @@ export function generateUnicodeCharFromRange(
 
   return characterList;
 }
+
+/**
+ * Retrieves an array of all alphabet letters (both uppercase and lowercase).
+ *
+ * ASCII table:
+ * https://www.sciencebuddies.org/science-fair-projects/references/ascii-table
+ *
+ *
+ * @returns {string[]} An array of alphabet letters.
+ */
+export function getAlphabetLetters(): string[] {
+  const upperCaseLettersArray: string[] = generateUnicodeCharFromRange(65, 90);
+  const lowerCaseLettersArray: string[] = generateUnicodeCharFromRange(97, 122);
+
+  const alphabetArray: string[] = upperCaseLettersArray.concat(
+    lowerCaseLettersArray
+  );
+  return alphabetArray;
+}
+
+/**
+ * Retrieves an array of numerical digits.
+ *
+ * ASCII table:
+ * https://www.sciencebuddies.org/science-fair-projects/references/ascii-table
+ *
+ * @returns {string[]} An array of numerical digits.
+ */
+export function getNumberDigits(): string[] {
+  const numberCharactersArray: string[] = generateUnicodeCharFromRange(48, 57);
+  return numberCharactersArray;
+}
+
+/**
+ * Retrieves an array of symbols.
+ *
+ * ASCII table:
+ * https://www.sciencebuddies.org/science-fair-projects/references/ascii-table
+ *
+ * @returns {string[]} An array of symbols.
+ */
+export function getSymbols(): string[] {
+  const symbols: string[] = generateUnicodeCharFromRange(33, 47).concat(
+    generateUnicodeCharFromRange(58, 64),
+    generateUnicodeCharFromRange(91, 96),
+    generateUnicodeCharFromRange(123, 126),
+    generateUnicodeCharFromRange(155, 159)
+  );
+  return symbols;
+}
+
+/**
+ * Parses a JSON string and returns the resulting JavaScript object.
+ *
+ * @param {string} string - A string that contains a valid JSON data.
+ *
+ * @returns {any} The parsed JavaScript object from the JSON data.
+ */
+export function parseToJS(string: string): any {
+  return JSON.parse(string);
+}
+
+/**
+ * Converts a JavaScript value to a JSON string.
+ *
+ * @param {any} value - A JavaScript value, usually an object or an array, to be converted to a JSON string.
+ *
+ * @returns {string} The JSON string representation of the input value.
+ */
+export function stringifyToJSON(value: any): string {
+  return JSON.stringify(value);
+}
