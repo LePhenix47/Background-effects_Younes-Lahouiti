@@ -1,6 +1,7 @@
 //Utils
 
 import { spliceArray } from "./array.functions";
+import { getRandomNumber } from "./number.functions";
 
 /**
  * Retrieves the values of an object inside an array.

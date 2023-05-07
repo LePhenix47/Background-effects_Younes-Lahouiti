@@ -63,3 +63,52 @@ export function createCanvasGradient(
 
   return canvasGradient;
 }
+/**
+ * Creates a line path on a canvas context based on an array of coordinates.
+ *
+ * @param {CanvasRenderingContext2D} canvasContext - The 2D canvas rendering context.
+ * @param {number} startX - The starting x-coordinate of the line path.
+ * @param {number} startY - The starting y-coordinate of the line path.
+ * @param {{x:number, y:number}[]} arrayOfCoordinates - An array of coordinate objects, each with x and y properties.
+ *
+ * @returns {void}
+ */
+export function createLinePath(
+  canvasContext: CanvasRenderingContext2D,
+  startX: number,
+  startY: number,
+  arrayOfCoordinates: { x: number; y: number }[]
+): void {
+  //We start creating a path
+  canvasContext.beginPath();
+
+  //we set a starting point
+  canvasContext.moveTo(startX, startY);
+
+  for (const coordinates of arrayOfCoordinates) {
+    const { x, y } = coordinates;
+    canvasContext.lineTo(x, y);
+  }
+
+  //We close the path
+  canvasContext.closePath();
+}
+
+/**
+ * Creates a circle on a canvas context.
+ *
+ * @param {CanvasRenderingContext2D} canvasContext - The 2D canvas rendering context.
+ * @param {number} startX - The starting x-coordinate of the circle.
+ * @param {number} startY - The starting y-coordinate of the circle.
+ * @param {number} radius - The radius of the circle.
+ *
+ * @returns {void}
+ */
+export function createCircle(
+  canvasContext: CanvasRenderingContext2D,
+  startX: number,
+  startY: number,
+  radius: number
+): void {
+  canvasContext.arc(startX, startY, radius, 0, Math.PI * 2);
+}

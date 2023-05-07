@@ -7,7 +7,7 @@
  *
  * @returns {number} A random number within the specified range.
  */
-function getRandomNumber(
+export function getRandomNumber(
   min: number,
   max: number,
   includeMin: boolean = true,
