@@ -35,7 +35,7 @@ const fallingParticlesCssStyle: string = /* css */ `
 `;
 const fallingParticlesTemplateHtml: string = /*html */ `
  <canvas class="web-component__canvas"></canvas>
- <h2 class="web-component__title">Boucing effect</h2> 
+ <!-- <h2 class="web-component__title">Boucing effect</h2>  -->
 `;
 
 fallingParticlesTemplateElement.innerHTML = /*html */ `

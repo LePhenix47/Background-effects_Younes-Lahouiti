@@ -80,9 +80,9 @@ export class MovingParticle {
 
     this.radius = getRandomNumber(0.5, 3);
 
-    this.vectorX = getRandomNumber(-2, 2);
+    this.vectorX = getRandomNumber(-5, 5) / 2;
 
-    this.vectorY = getRandomNumber(-2, 2);
+    this.vectorY = getRandomNumber(-5, 5) / 2;
   }
 
   /**
