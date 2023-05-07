@@ -12,6 +12,8 @@
     &__effect {
         min-height: 75dvh;
         position: relative;
+
+        outline: 2px solid currentColor;
     }
 
     &__web-component {
