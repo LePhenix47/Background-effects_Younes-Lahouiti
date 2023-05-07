@@ -183,6 +183,10 @@ class MovingParticles extends HTMLElement {
    * @returns {void}
    */
   resetCanvasToMatchScreen(): void {
+    const isNotPlaying: boolean = !this.isPlaying;
+    if (isNotPlaying) {
+      return;
+    }
     //We set a new width and height to our canvas
     this.resizeCanvas();
     //We cancel the animation loop
