@@ -4,7 +4,11 @@ import {
   setCanvasSize,
 } from "../utils/functions/canvas.functions";
 import { log } from "../utils/functions/console.functions";
-import { selectQuery } from "../utils/functions/dom.functions";
+import {
+  addClass,
+  removeClass,
+  selectQuery,
+} from "../utils/functions/dom.functions";
 import {
   WebComponentCssReset,
   WebComponentCssVariables,
@@ -144,7 +148,7 @@ class MovingParticles extends HTMLElement {
    * @returns {boolean}
    */
   get isPlaying(): boolean {
-    const attribute = this.getAttribute("is-playing");
+    const attribute: string = this.getAttribute("is-playing");
     return JSON.parse(attribute);
   }
 
@@ -166,6 +170,8 @@ class MovingParticles extends HTMLElement {
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
     window.addEventListener("resize", this.resetCanvasToMatchScreen);
+
+    this.animateCanvas();
   }
 
   /**
@@ -244,13 +250,16 @@ class MovingParticles extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
+    const webComponent: HTMLElement = selectQuery("moving-particles");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";
         if (isPlaying) {
           this.animateCanvas();
+          removeClass(webComponent, "hide");
         } else {
           this.cancelCanvasAnimation();
+          addClass(webComponent, "hide");
         }
         //…
         break;

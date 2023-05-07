@@ -22,7 +22,13 @@ const fallingParticlesCssStyle: string = /* css */ `
  }
 
  .web-component__title{
+  text-align: center;
+
   position: relative;
+  inset:50%;
+
+  width: 50%;
+  translate: -50% -50%;
 
   z-index: 69420;
 
@@ -35,7 +41,7 @@ const fallingParticlesCssStyle: string = /* css */ `
 `;
 const fallingParticlesTemplateHtml: string = /*html */ `
  <canvas class="web-component__canvas"></canvas>
- <!-- <h2 class="web-component__title">Boucing effect</h2>  -->
+ <h2 class="web-component__title">Boucing effect</h2> 
 `;
 
 fallingParticlesTemplateElement.innerHTML = /*html */ `
@@ -243,6 +249,7 @@ class FallingParticles extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
+    const webComponent: HTMLElement = selectQuery("falling-particles");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";

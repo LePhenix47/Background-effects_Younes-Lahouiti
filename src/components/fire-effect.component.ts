@@ -230,6 +230,7 @@ class FireEffect extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
+    const webComponent: HTMLElement = selectQuery("fire-effect");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";

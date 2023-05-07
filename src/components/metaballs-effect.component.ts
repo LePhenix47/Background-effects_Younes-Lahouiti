@@ -230,6 +230,7 @@ class MetaballsEffect extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
+    const webComponent: HTMLElement = selectQuery("metaballs-effect");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";
