@@ -27,7 +27,16 @@ export class FallingParticle {
    */
   height: number;
 
+  /** The title element to bounce the particle on top of.
+   * @type {HTMLHeadingElement}
+   * @memberof FallingParticle
+   */
+
   title: HTMLHeadingElement;
+  /** The rectangle object of the title element.
+   * @type {DOMRect}
+   * @memberof FallingParticle
+   */
   private titleDomRect: DOMRect;
 
   /**
@@ -77,9 +86,11 @@ export class FallingParticle {
 
   /**
    * Creates a FallingParticle instance.
+   *
    * @param {CanvasRenderingContext2D} context - The canvas context.
    * @param {number} width - The width of the canvas.
    * @param {number} height - The height of the canvas.
+   *
    * @memberof FallingParticle
    */
   constructor(
@@ -113,9 +124,12 @@ export class FallingParticle {
 
   /**
    * Updates the offset x and y coordinates of the particle.
+   *
+   * @returns {void}
+   *
    * @memberof FallingParticle
    */
-  update() {
+  update(): void {
     //We update their velocity
     this.x += this.vectorX;
     this.y += this.weight;
@@ -128,11 +142,16 @@ export class FallingParticle {
     this.checkCanvasBottomCollision();
 
     this.checkTopTitleCollision();
-
-    this.checkHorizontalSidesCollision();
   }
 
-  private checkCanvasSideCollision() {
+  /**
+   * Checks if the particle collides with the left or right side of the canvas.
+   *
+   *
+   * @returns {void}
+   * @memberof FallingParticle
+   */
+  private checkCanvasSideCollision(): void {
     const leftSideOverflow: boolean = this.x - this.radius < 0;
     const rightSideOverflow: boolean = this.x + this.radius > this.width;
 
@@ -143,7 +162,15 @@ export class FallingParticle {
     }
   }
 
-  private checkCanvasBottomCollision() {
+  /**
+   * Checks if the particle collides with the bottom side of the canvas.
+   * If so, resets the particle to the top of the canvas with its original weight.
+   *
+   *
+   * @returns {void}
+   * @memberof FallingParticle
+   */
+  private checkCanvasBottomCollision(): void {
     const hasHitTheBottom: boolean = this.y >= this.height;
     if (hasHitTheBottom) {
       this.y = 0;
@@ -151,16 +178,24 @@ export class FallingParticle {
     }
   }
 
-  //Here, needs to be fixed
-  private checkTopTitleCollision() {
+  /**
+   * Checks if the particle collides with the top of the title element.
+   * If so, makes the particle bounce and updates its weight.
+   *
+   *
+   * @returns {void}
+   * @memberof FallingParticle
+   */
+  private checkTopTitleCollision(): void {
     const isBetweenXCoordsOfTitle: boolean =
       this.x < this.titleDomRect.x + this.titleDomRect.width &&
       this.x > this.titleDomRect.x;
 
+    //Temporary solution
+    const bodge = 115 - this.radius;
     const hasSameTopYCoordsOfTitle: boolean =
-      this.y <
-        this.titleDomRect.top - 110 - this.radius + this.titleDomRect.height &&
-      this.y > this.titleDomRect.top - 110 - this.radius;
+      this.y < this.titleDomRect.y - bodge + this.titleDomRect.height &&
+      this.y > this.titleDomRect.y - bodge;
 
     const hasHitTopOfTitle: boolean =
       isBetweenXCoordsOfTitle && hasSameTopYCoordsOfTitle;
@@ -170,8 +205,6 @@ export class FallingParticle {
       this.weight *= -0.75;
     }
   }
-
-  private checkHorizontalSidesCollision() {}
 
   /**
    * Draws the particle on the canvas.
