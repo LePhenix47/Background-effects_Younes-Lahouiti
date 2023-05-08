@@ -15,11 +15,22 @@ const fireEffectTemplateElement: HTMLTemplateElement =
 
 const fireEffectCssStyle: string = /* css */ `
  .web-component__canvas{
-    position: absolute;
-
+   background-color: white;
+   
+   position: absolute;
     width: 100%;
     height: 100%;
+
+    filter: invert(100%) hue-rotate(180deg) blur(5px) contrast(20);
+     
+    transition: filter 600ms ease-in-out;
  }
+
+  @media(prefers-color-scheme:dark) {
+    .web-component__canvas{
+        filter: invert(0%) hue-rotate(0deg) blur(5px) contrast(20);
+    }
+  }
 `;
 const fireEffectTemplateHtml: string = /*html */ `
  <canvas class="web-component__canvas"></canvas>
@@ -111,7 +122,7 @@ class FireEffect extends HTMLElement {
      * The object responsible for creating and animating the particles.
      * @type {MovingParticlesCreator}
      */
-    this.effectHandler = new FireEffectCreator();
+    this.effectHandler = new FireEffectCreator(this.canvas, 50);
     this.resizeCanvas();
   }
 
@@ -147,7 +158,7 @@ class FireEffect extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
-    this.effectHandler = new FireEffectCreator();
+    this.effectHandler = new FireEffectCreator(this.canvas, 50);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
@@ -178,7 +189,7 @@ class FireEffect extends HTMLElement {
     //We cancel the animation loop
     this.cancelCanvasAnimation();
     //We create a new effect
-    this.effectHandler = new FireEffectCreator();
+    this.effectHandler = new FireEffectCreator(this.canvas, 50);
     //We restart the animation loop
     this.animateCanvas();
   }
@@ -193,7 +204,7 @@ class FireEffect extends HTMLElement {
 
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // this.effectHandler.animateParticles();
+    this.effectHandler.animateParticles();
 
     this.animationId = requestAnimationFrame(this.animateCanvas);
   }

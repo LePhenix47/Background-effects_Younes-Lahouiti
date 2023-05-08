@@ -1,4 +1,5 @@
 import { createCircle } from "../../functions/canvas.functions";
+import { log } from "../../functions/console.functions";
 import { getRandomNumber } from "../../functions/number.functions";
 
 export class FireParticle {
@@ -42,7 +43,7 @@ export class FireParticle {
    * @type {number}
    * @memberof MovingParticle
    */
-  private radius: number;
+  radius: number;
 
   /**
    * The velocity vector in the x direction.
@@ -78,11 +79,11 @@ export class FireParticle {
     this.x = getRandomNumber(10, width - 10);
     this.y = this.height;
 
-    this.radius = getRandomNumber(1, 5);
+    this.radius = getRandomNumber(5, 30);
 
-    this.vectorX = getRandomNumber(-0.5, 0.5);
+    this.vectorX = getRandomNumber(0.1, 0.5) * 2;
 
-    this.vectorY = getRandomNumber(-0.5, 0.5);
+    this.vectorY = getRandomNumber(width / 4, (3 * width) / 4);
   }
 
   /**
@@ -93,34 +94,25 @@ export class FireParticle {
    */
   update(): void {
     this.x += this.vectorX;
-    this.y += this.vectorY;
+    this.y -= this.vectorY;
 
-    this.checkHorizontalCollisions();
+    this.vectorY += 0.1;
 
-    this.checkVerticalCollisions();
-  }
-
-  private checkHorizontalCollisions() {
-    // Check if the particle has reached the left edge of the canvas
-    const leftSideOverflow: boolean = this.x - this.radius <= 0;
-    // Check if the particle has reached the right edge of the canvas
-    const rightSideOverflow: boolean = this.x + this.radius >= this.width;
-    if (leftSideOverflow || rightSideOverflow) {
-      this.vectorX *= -1; // Reverse the x direction
+    const hasRadiusAndIsBig = this.radius > 0.3;
+    if (hasRadiusAndIsBig) {
+      this.radius -= 0.01;
     }
+
+    this.checkTopCollision();
   }
 
-  /**
-   * Checks for collisions with the top and bottom edges of the canvas, and reverses the y direction if necessary.
-   * @memberof MovingParticle
-   */
-  private checkVerticalCollisions() {
-    // Check if the particle has reached the bottom edge of the canvas
-    const bottomSideOverflow: boolean = this.y + this.radius >= this.height;
-    // Check if the particle has reached the top edge of the canvas
-    const topSideOverflow: boolean = this.y - this.radius <= 0;
-    if (topSideOverflow || bottomSideOverflow) {
-      this.vectorY *= -1; // Reverse the y direction
+  checkTopCollision() {
+    const hasHitTop: boolean = this.y - this.radius <= 0;
+    if (hasHitTop) {
+      this.y = this.height;
+      this.radius = getRandomNumber(5, 30);
+      this.vectorY = getRandomNumber(-0.5, 0.5);
+      this.vectorX = getRandomNumber(-0.5, 0.5);
     }
   }
 
@@ -131,7 +123,7 @@ export class FireParticle {
    * @memberof MovingParticle
    */
   draw(): void {
-    this.context.fillStyle = `white`;
+    this.context.fillStyle = `orange`;
     this.context.beginPath();
 
     createCircle(this.context, this.x, this.y, this.radius);

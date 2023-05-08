@@ -34,7 +34,6 @@ export class MetaballsEffectCreator {
    * Creates an instance of FallingEffectCreator.
    *
    * @param {HTMLCanvasElement} canvas - The canvas element.
-   * @param {HTMLHeadingElement} title - The title element.
    * @param {number} particlesAmount - The number of particles to be created.
    * @memberof FallingEffectCreator
    */
