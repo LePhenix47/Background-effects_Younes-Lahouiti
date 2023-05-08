@@ -3,9 +3,19 @@
 .header {
     padding-block: 25px;
 
+    @include center-flex-column(5px);
+
     &__title {
         text-align: center;
 
-        width: 100%;
+        width: fit-content;
+        padding: 10px 20px;
+
+        background-color: var(--color-primary);
+        color: var(--bg-primary);
+
+        border-radius: 100vmax;
+
+        filter: url(#distortion)
     }
 }

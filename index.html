@@ -40,10 +40,22 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title" title="Background effects">Background effects
-        </h1>
+
+        <h1 id="title" class="header__title" title="Background effects">Background effects</h1>
         <svg class="hide">
-            <defs></defs>
+            <defs>
+                <filter id="distortion">
+
+                    <feTurbulence baseFrequency="0.7,0.8" seed="0" type="fractalNoise" result="static">
+                        <animate attributeName="seed" values="0;1000;0" dur="2s" repeatCount="indefinite" />
+                    </feTurbulence>
+
+                    <feDisplacementMap in="SourceGraphic" in2="static" scale="0">
+                        <animate attributeName="scale" values="5" dur="2s" repeatCount="indefinite" />
+                    </feDisplacementMap>
+
+                </filter>
+            </defs>
         </svg>
     </header>
     <main class="index">
