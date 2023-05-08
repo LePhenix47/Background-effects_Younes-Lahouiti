@@ -19,7 +19,18 @@ const metaballsEffectCssStyle: string = /* css */ `
 
     width: 100%;
     height: 100%;
+
+    filter: invert(100%) hue-rotate(180deg) blur(5px) contrast(20);
+
+    transition: 
+      filter 600ms ease-in-out;
  }
+
+ @media(prefers-color-scheme:dark) {
+    .web-component__canvas{
+       filter: invert(0%) hue-rotate(0deg) blur(5px) contrast(20);
+    }
+}
 `;
 const metaballsEffectTemplateHtml: string = /*html */ `
  <canvas class="web-component__canvas"></canvas>
@@ -111,7 +122,7 @@ class MetaballsEffect extends HTMLElement {
      * The object responsible for creating and animating the particles.
      * @type {MovingParticlesCreator}
      */
-    this.effectHandler = new MetaballsEffectCreator();
+    this.effectHandler = new MetaballsEffectCreator(this.canvas, 100);
     this.resizeCanvas();
   }
 
@@ -147,7 +158,7 @@ class MetaballsEffect extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
-    this.effectHandler = new MetaballsEffectCreator();
+    this.effectHandler = new MetaballsEffectCreator(this.canvas, 100);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
@@ -178,7 +189,7 @@ class MetaballsEffect extends HTMLElement {
     //We cancel the animation loop
     this.cancelCanvasAnimation();
     //We create a new effect
-    this.effectHandler = new MetaballsEffectCreator();
+    this.effectHandler = new MetaballsEffectCreator(this.canvas, 100);
     //We restart the animation loop
     this.animateCanvas();
   }
@@ -193,7 +204,7 @@ class MetaballsEffect extends HTMLElement {
 
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // this.effectHandler.animateParticles();
+    this.effectHandler.animateParticles();
 
     this.animationId = requestAnimationFrame(this.animateCanvas);
   }
@@ -208,7 +219,7 @@ class MetaballsEffect extends HTMLElement {
   }
 
   /**
-   * Called when the element is remove from the DOM.
+   * Called when the element is removed from the DOM.
    *
    * @returns {void}
    */
