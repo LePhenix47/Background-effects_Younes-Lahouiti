@@ -1,3 +1,5 @@
+import { createCircle } from "../../functions/canvas.functions";
+import { log } from "../../functions/console.functions";
 import { getRandomNumber } from "../../functions/number.functions";
 
 /**
@@ -25,13 +27,8 @@ export class FallingParticle {
    */
   height: number;
 
-  titleX: number;
-
-  titleY: number;
-
-  titleWidth: number;
-
-  titleHeight: number;
+  title: HTMLHeadingElement;
+  private titleDomRect: DOMRect;
 
   /**
    * The x coordinate of the particle.
@@ -63,7 +60,7 @@ export class FallingParticle {
   private vectorX: number;
 
   /**
-   * The weight of the particle.
+   * The current weight of the particle.
    * @type {number}
    * @memberof FallingParticle
    * @private
@@ -89,20 +86,16 @@ export class FallingParticle {
     context: CanvasRenderingContext2D,
     width: number,
     height: number,
-    titleX: number,
-    titleY: number,
-    titleWidth: number,
-    titleHeight: number
+    title: HTMLHeadingElement
   ) {
     this.context = context;
 
     this.width = width;
     this.height = height;
 
-    this.titleX = titleX;
-    this.titleY = titleY;
-    this.titleWidth = titleWidth;
-    this.titleHeight = titleHeight;
+    this.title = title;
+
+    this.titleDomRect = this.title.getBoundingClientRect();
 
     // Coordinates of the particle
     this.x = getRandomNumber(0, width);
@@ -123,12 +116,20 @@ export class FallingParticle {
    * @memberof FallingParticle
    */
   update() {
+    //We update their velocity
     this.x += this.vectorX;
     this.y += this.weight;
 
-    this.weight += 0.1;
+    //We make them fall
+    this.weight += 0.05;
 
     this.checkCanvasSideCollision();
+
+    this.checkCanvasBottomCollision();
+
+    this.checkTopTitleCollision();
+
+    this.checkHorizontalSidesCollision();
   }
 
   private checkCanvasSideCollision() {
@@ -142,7 +143,36 @@ export class FallingParticle {
     }
   }
 
-  private checkTopTitleCollision() {}
+  private checkCanvasBottomCollision() {
+    const hasHitTheBottom = this.y >= this.height;
+    if (hasHitTheBottom) {
+      this.y = 0;
+      this.weight = this.ORIGINAL_WEIGHT;
+    }
+  }
+
+  //Here, needs to be fixed
+  private checkTopTitleCollision() {
+    const titleX1: number = this.titleDomRect.x;
+
+    const titleX2: number = this.titleDomRect.x + this.titleDomRect.width;
+
+    const isBetweenXCoordsOfTitle: boolean =
+      this.x + this.radius > titleX1 && this.x - this.radius < titleX2;
+
+    const titleY1: number = this.titleDomRect.y;
+
+    const titleY2: number = this.titleDomRect.y + this.titleDomRect.height;
+    const hasSameTopYCoordsOfTitle: boolean = this.y + this.radius > titleY1;
+
+    const hasHitTopOfTitle: boolean =
+      isBetweenXCoordsOfTitle && hasSameTopYCoordsOfTitle;
+    debugger;
+    if (hasHitTopOfTitle) {
+      this.y -= 1;
+      this.weight *= -0.75;
+    }
+  }
 
   private checkHorizontalSidesCollision() {}
 
@@ -151,6 +181,10 @@ export class FallingParticle {
    * @memberof FallingParticle
    */
   draw() {
-    this.context;
+    this.context.fillStyle = `cyan`;
+    this.context.beginPath();
+
+    createCircle(this.context, this.x, this.y, this.radius);
+    this.context.fill();
   }
 }

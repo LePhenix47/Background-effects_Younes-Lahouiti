@@ -3,6 +3,7 @@ import {
   get2DContext,
   setCanvasSize,
 } from "../utils/functions/canvas.functions";
+import { log } from "../utils/functions/console.functions";
 import { selectQuery } from "../utils/functions/dom.functions";
 import {
   WebComponentCssReset,
@@ -19,6 +20,9 @@ const fallingParticlesCssStyle: string = /* css */ `
 
     width: 100%;
     height: 100%;
+     filter: invert(100%) hue-rotate(270deg);
+
+     transition: filter 600ms ease-in-out;
  }
 
  .web-component__title{
@@ -38,13 +42,20 @@ const fallingParticlesCssStyle: string = /* css */ `
   border: 3px solid currentColor;
   border-bottom: transparent;
  }
+
+ 
+ @media(prefers-color-scheme:dark) {
+    .web-component__canvas{
+       filter: invert(0%) hue-rotate(0deg);
+    }
+}
 `;
-const fallingParticlesTemplateHtml: string = /*html */ `
+const fallingParticlesTemplateHtml: string = /* html */ `
  <canvas class="web-component__canvas"></canvas>
  <h2 class="web-component__title">Boucing effect</h2> 
 `;
 
-fallingParticlesTemplateElement.innerHTML = /*html */ `
+fallingParticlesTemplateElement.innerHTML = /* html */ `
   <style>
     /* Reset */
     ${WebComponentCssVariables}
@@ -69,6 +80,10 @@ class FallingParticles extends HTMLElement {
    * @type {CanvasRenderingContext2D}
    */
   context: CanvasRenderingContext2D;
+
+  webComponent: HTMLElement;
+
+  titleHeading: HTMLHeadingElement;
 
   /**
    * The object responsible for creating and animating the particles.
@@ -95,14 +110,12 @@ class FallingParticles extends HTMLElement {
     /**
      * We bind the `this` keyword with the `animateCanvas()` method
      * to make sure that the method has access to its values.
-     * @function
      */
     this.animateCanvas = this.animateCanvas.bind(this);
 
     /**
      * We bind the `this` keyword with the `resetCanvasToMatchScreen()` method
      * to make sure that the method has access to its values.
-     * @function
      */
     this.resetCanvasToMatchScreen = this.resetCanvasToMatchScreen.bind(this);
 
@@ -126,11 +139,19 @@ class FallingParticles extends HTMLElement {
      */
     this.context = get2DContext(this.canvas);
 
+    this.webComponent = selectQuery("falling-particles");
+
+    this.titleHeading = selectQuery("h2", this.shadowRoot);
+
     /**
      * The object responsible for creating and animating the particles.
      * @type {MovingParticlesCreator}
      */
-    this.effectHandler = new FallingEffectCreator();
+    this.effectHandler = new FallingEffectCreator(
+      this.canvas,
+      this.titleHeading,
+      100
+    );
     this.resizeCanvas();
   }
 
@@ -166,7 +187,11 @@ class FallingParticles extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
-    this.effectHandler = new FallingEffectCreator();
+    this.effectHandler = new FallingEffectCreator(
+      this.canvas,
+      this.titleHeading,
+      100
+    );
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
@@ -188,16 +213,21 @@ class FallingParticles extends HTMLElement {
    * @returns {void}
    */
   resetCanvasToMatchScreen(): void {
+    //We set a new width and height to our canvas
     const isNotPlaying: boolean = !this.isPlaying;
     if (isNotPlaying) {
       return;
     }
-    //We set a new width and height to our canvas
     this.resizeCanvas();
     //We cancel the animation loop
     this.cancelCanvasAnimation();
     //We create a new effect
-    this.effectHandler = new FallingEffectCreator();
+    this.effectHandler = new FallingEffectCreator(
+      this.canvas,
+      this.titleHeading,
+      100
+    );
+
     //We restart the animation loop
     this.animateCanvas();
   }
@@ -212,7 +242,7 @@ class FallingParticles extends HTMLElement {
 
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // this.effectHandler.animateParticles();
+    this.effectHandler.animateParticles();
 
     this.animationId = requestAnimationFrame(this.animateCanvas);
   }
@@ -249,7 +279,6 @@ class FallingParticles extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
-    const webComponent: HTMLElement = selectQuery("falling-particles");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";
