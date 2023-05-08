@@ -101,6 +101,7 @@ export class FallingParticle {
     this.x = getRandomNumber(0, width);
     this.y = getRandomNumber(0, height);
 
+    log(this.titleDomRect.top, this.y);
     // Size in pixels
     this.radius = 5;
 
@@ -144,7 +145,7 @@ export class FallingParticle {
   }
 
   private checkCanvasBottomCollision() {
-    const hasHitTheBottom = this.y >= this.height;
+    const hasHitTheBottom: boolean = this.y >= this.height;
     if (hasHitTheBottom) {
       this.y = 0;
       this.weight = this.ORIGINAL_WEIGHT;
@@ -153,24 +154,23 @@ export class FallingParticle {
 
   //Here, needs to be fixed
   private checkTopTitleCollision() {
-    const titleX1: number = this.titleDomRect.x;
-
-    const titleX2: number = this.titleDomRect.x + this.titleDomRect.width;
-
     const isBetweenXCoordsOfTitle: boolean =
-      this.x + this.radius > titleX1 && this.x - this.radius < titleX2;
+      this.x < this.titleDomRect.x + this.titleDomRect.width &&
+      this.x > this.titleDomRect.x;
 
-    const titleY1: number = this.titleDomRect.y;
-
-    const titleY2: number = this.titleDomRect.y + this.titleDomRect.height;
-    const hasSameTopYCoordsOfTitle: boolean = this.y + this.radius > titleY1;
+    const hasSameTopYCoordsOfTitle: boolean =
+      this.y < this.titleDomRect.y + this.titleDomRect.height &&
+      this.y > this.titleDomRect.y;
 
     const hasHitTopOfTitle: boolean =
       isBetweenXCoordsOfTitle && hasSameTopYCoordsOfTitle;
-    debugger;
+
     if (hasHitTopOfTitle) {
-      this.y -= 1;
-      this.weight *= -0.75;
+      this.y = this.titleDomRect.y - this.titleDomRect.height;
+      this.vectorX = 0;
+      this.weight = 0;
+      // this.y -=1;
+      // this.weight *= -0.75;
     }
   }
 

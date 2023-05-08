@@ -29,6 +29,7 @@ const fallingParticlesCssStyle: string = /* css */ `
   text-align: center;
 
   position: relative;
+
   inset:50%;
 
   width: 50%;
