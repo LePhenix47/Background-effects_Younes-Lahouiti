@@ -26,8 +26,6 @@ const fallingParticlesCssStyle: string = /* css */ `
  }
 
  .web-component__title{
-  text-align: center;
-
   position: relative;
 
   inset:50%;
@@ -35,11 +33,13 @@ const fallingParticlesCssStyle: string = /* css */ `
   width: 50%;
   translate: -50% -50%;
 
+  text-align: center;
+
   z-index: 69420;
 
   padding: 15px;
-
   font-size: 3vw;
+
   border: 3px solid currentColor;
   border-bottom: transparent;
  }

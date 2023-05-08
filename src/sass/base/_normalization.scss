@@ -26,7 +26,7 @@
 *::selection {
     -webkit-text-stroke: transparent;
 
-    color: currentColor;
+    color: var(--selection-color);
 
     background-color: var(--selection-bg-color);
 }

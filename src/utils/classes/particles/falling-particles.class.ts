@@ -101,7 +101,6 @@ export class FallingParticle {
     this.x = getRandomNumber(0, width);
     this.y = getRandomNumber(0, height);
 
-    log(this.titleDomRect.top, this.y);
     // Size in pixels
     this.radius = 5;
 
@@ -159,18 +158,16 @@ export class FallingParticle {
       this.x > this.titleDomRect.x;
 
     const hasSameTopYCoordsOfTitle: boolean =
-      this.y < this.titleDomRect.y + this.titleDomRect.height &&
-      this.y > this.titleDomRect.y;
+      this.y <
+        this.titleDomRect.top - 110 - this.radius + this.titleDomRect.height &&
+      this.y > this.titleDomRect.top - 110 - this.radius;
 
     const hasHitTopOfTitle: boolean =
       isBetweenXCoordsOfTitle && hasSameTopYCoordsOfTitle;
 
     if (hasHitTopOfTitle) {
-      this.y = this.titleDomRect.y - this.titleDomRect.height;
-      this.vectorX = 0;
-      this.weight = 0;
-      // this.y -=1;
-      // this.weight *= -0.75;
+      this.y -= 1;
+      this.weight *= -0.75;
     }
   }
 
