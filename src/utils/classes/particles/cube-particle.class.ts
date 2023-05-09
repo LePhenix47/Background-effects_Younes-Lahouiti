@@ -1,3 +1,5 @@
+import { log } from "../../functions/console.functions";
+
 /**
  * Represents a cube particle in a canvas.
  *
@@ -31,13 +33,10 @@ export class CubeParticle {
 
     this.length = 1;
 
-    this.x = width / 2;
-    this.y = height / 2;
+    this.x = this.width / 2;
+    this.y = this.height / 2;
 
     this.rotation = 0;
-
-    this.context.translate(-this.length / 2, -this.length / 2);
-    this.context.scale(this.x, this.y);
   }
 
   /**
@@ -66,16 +65,19 @@ export class CubeParticle {
    * Draws the cube particle on the canvas.
    */
   draw() {
-    // this.context.save()
-
     this.context.strokeStyle = `white`;
 
-    this.context.strokeRect(this.x, this.y, this.length, this.length);
+    //Must use variables (not class properties) to compute the center of the square
+    const middleSquareX: number = this.x - this.length / 2;
+    const middleSquareY: number = this.y - this.length / 2;
 
-    // this.context.rotate(this.rotation);
+    this.context.strokeRect(
+      middleSquareX,
+      middleSquareY,
+      this.length,
+      this.length
+    );
 
     this.context.stroke();
-
-    // this.context.restore()
   }
 }
