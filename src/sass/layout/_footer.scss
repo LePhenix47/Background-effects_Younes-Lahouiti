@@ -1,3 +1,6 @@
 @use "../utils/" as *;
 
-.footer {}
+.footer {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+}

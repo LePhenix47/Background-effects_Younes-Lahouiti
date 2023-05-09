@@ -21,14 +21,14 @@ const fireEffectCssStyle: string = /* css */ `
     width: 100%;
     height: 100%;
 
-    filter: invert(100%) hue-rotate(180deg) blur(5px) contrast(20);
+    filter: invert(100%) hue-rotate(180deg) blur(20px) contrast(8);
      
     transition: filter 600ms ease-in-out;
  }
 
   @media(prefers-color-scheme:dark) {
     .web-component__canvas{
-        filter: invert(0%) hue-rotate(0deg) blur(5px) contrast(20);
+        filter: invert(0%) hue-rotate(0deg) blur(20px) contrast(8);
     }
   }
 `;

@@ -22,4 +22,9 @@
         height: 100%;
         width: 100%;
     }
+
+    &__form {
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+    }
 }

@@ -77,11 +77,11 @@ export class FireEffectCreator {
       particle.update();
       particle.draw();
 
-      //   const hasShrunkTooMuch: boolean = particle.radius < 0.1;
-      //   if (hasShrunkTooMuch) {
-      //     spliceArray(this.particlesArray, i, 1);
-      //     i--;
-      //   }
+      const hasShrunkTooMuch: boolean = particle.radius < 0.1;
+      if (hasShrunkTooMuch) {
+        spliceArray(this.particlesArray, i, 1);
+        i--;
+      }
     }
   }
 }

@@ -76,14 +76,14 @@ export class FireParticle {
     this.width = width;
     this.height = height;
 
-    this.x = getRandomNumber(10, width - 10);
+    this.x = getRandomNumber(10, width);
     this.y = this.height;
 
-    this.radius = getRandomNumber(5, 30);
+    this.radius = getRandomNumber(50, 100);
 
-    this.vectorX = getRandomNumber(0.1, 0.5) * 2;
+    this.vectorX = getRandomNumber(1.5, 3);
 
-    this.vectorY = getRandomNumber(width / 4, (3 * width) / 4);
+    this.vectorY = getRandomNumber(0, width);
   }
 
   /**
@@ -94,26 +94,44 @@ export class FireParticle {
    */
   update(): void {
     this.x += this.vectorX;
+
     this.y -= this.vectorY;
 
-    this.vectorY += 0.1;
+    const hasRadiusAndIsBig = this.radius >= 65;
 
-    const hasRadiusAndIsBig = this.radius > 0.3;
     if (hasRadiusAndIsBig) {
-      this.radius -= 0.01;
+      this.y = 0;
+      this.vectorY = getRandomNumber(0.1, 0.5);
+      this.vectorX = 0.01;
     }
 
     this.checkTopCollision();
+    this.checkHorizontalSidesCollision();
   }
 
-  checkTopCollision() {
+  private checkTopCollision() {
     const hasHitTop: boolean = this.y - this.radius <= 0;
     if (hasHitTop) {
-      this.y = this.height;
-      this.radius = getRandomNumber(5, 30);
-      this.vectorY = getRandomNumber(-0.5, 0.5);
-      this.vectorX = getRandomNumber(-0.5, 0.5);
+      this.resetParticle();
     }
+  }
+  private checkHorizontalSidesCollision() {
+    const hasHitLeft: boolean = this.y - this.radius < 0;
+    const hasHitRight: boolean = this.y + this.radius > this.width;
+
+    const hasHorizontalOverflow = hasHitLeft || hasHitRight;
+
+    if (hasHorizontalOverflow) {
+      this.resetParticle();
+    }
+  }
+
+  private resetParticle() {
+    this.y = this.height;
+    this.radius = getRandomNumber(50, 100);
+
+    this.vectorY = getRandomNumber(-0.5, 0.5);
+    this.vectorX = getRandomNumber(-0.5, 0.5);
   }
 
   /**
