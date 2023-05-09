@@ -208,10 +208,7 @@ export function getAlphabetLetters(): string[] {
   const upperCaseLettersArray: string[] = generateUnicodeCharFromRange(65, 90);
   const lowerCaseLettersArray: string[] = generateUnicodeCharFromRange(97, 122);
 
-  const alphabetArray: string[] = upperCaseLettersArray.concat(
-    lowerCaseLettersArray
-  );
-  return alphabetArray;
+  return upperCaseLettersArray.concat(lowerCaseLettersArray);
 }
 
 /**
@@ -223,8 +220,7 @@ export function getAlphabetLetters(): string[] {
  * @returns {string[]} An array of numerical digits.
  */
 export function getNumberDigits(): string[] {
-  const numberCharactersArray: string[] = generateUnicodeCharFromRange(48, 57);
-  return numberCharactersArray;
+  return generateUnicodeCharFromRange(48, 57);
 }
 
 /**
@@ -243,6 +239,42 @@ export function getSymbols(): string[] {
     generateUnicodeCharFromRange(155, 159)
   );
   return symbols;
+}
+
+/**
+ * Generates an array of characters representing Hiragana Japanese letters
+ *
+ * @returns {string[]} An array of characters representing Hiragana Japanese letters
+ */
+export function getKanjiLetters(): string[] {
+  return generateUnicodeCharFromRange(0x3040, 0x309f);
+}
+
+/**
+ * Generates an object containing arrays of characters representing alphabet letters, Japanese letters,
+ * number digits, and symbols.
+ *
+ * @returns {{ letters: string[]; numberDigits: string[]; symbols: string[]; }}
+ * An object containing arrays of characters representing alphabet letters with Latin and Japanese letters,
+ * number digits, and symbols.
+ */
+export function getCharacterSets(): {
+  letters: string[];
+  numberDigits: string[];
+  symbols: string[];
+} {
+  const alphabet: string[] = getAlphabetLetters();
+  const japaneseLetters: string[] = getKanjiLetters();
+
+  const letters: string[] = alphabet.concat(japaneseLetters);
+  const numberDigits: string[] = getNumberDigits();
+  const symbols: string[] = getSymbols();
+
+  return {
+    letters,
+    numberDigits,
+    symbols,
+  };
 }
 
 /**

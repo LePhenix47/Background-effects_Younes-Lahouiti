@@ -1,9 +1,12 @@
 import { MatrixEffectCreator } from "../utils/classes/effects/matrix-effect-creator.class";
+import { Timeout } from "../utils/classes/services/timeout.class";
 import {
   get2DContext,
   setCanvasSize,
 } from "../utils/functions/canvas.functions";
+import { log } from "../utils/functions/console.functions";
 import { selectQuery } from "../utils/functions/dom.functions";
+import { parseToJS } from "../utils/functions/string.functions";
 import {
   WebComponentCssReset,
   WebComponentCssVariables,
@@ -110,7 +113,7 @@ class MatrixEffect extends HTMLElement {
      * The object responsible for creating and animating the particles.
      * @type {MovingParticlesCreator}
      */
-    this.effectHandler = new MatrixEffectCreator();
+    this.effectHandler = new MatrixEffectCreator(this.canvas);
     this.resizeCanvas();
   }
 
@@ -146,7 +149,7 @@ class MatrixEffect extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
-    this.effectHandler = new MatrixEffectCreator();
+    this.effectHandler = new MatrixEffectCreator(this.canvas);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
@@ -174,12 +177,8 @@ class MatrixEffect extends HTMLElement {
     }
     //We set a new width and height to our canvas
     this.resizeCanvas();
-    //We cancel the animation loop
-    this.cancelCanvasAnimation();
-    //We create a new effect
-    this.effectHandler = new MatrixEffectCreator();
-    //We restart the animation loop
-    this.animateCanvas();
+    //We reqize the letters
+    this.effectHandler.resize(this.canvas.width, this.canvas.height);
   }
 
   /**
@@ -192,9 +191,13 @@ class MatrixEffect extends HTMLElement {
 
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // this.effectHandler.animateParticles();
+    this.effectHandler.animateSymbols();
 
-    this.animationId = requestAnimationFrame(this.animateCanvas);
+    const FPS: number = 1_000 / 30;
+
+    setTimeout(() => {
+      this.animationId = requestAnimationFrame(this.animateCanvas);
+    }, FPS);
   }
 
   /**
@@ -230,9 +233,15 @@ class MatrixEffect extends HTMLElement {
     newValue: string
   ): void {
     const webComponent: HTMLElement = selectQuery("matrix-effect");
+
+    const parsedOldValue = parseToJS(oldValue);
+    const parsedNewValue = parseToJS(newValue);
+
+    log("New value:", parsedNewValue);
     switch (name) {
       case "is-playing": {
-        const isPlaying: boolean = newValue === "true";
+        const isPlaying: boolean = !!parsedNewValue;
+        log({ isPlaying });
         if (isPlaying) {
           this.animateCanvas();
         } else {
