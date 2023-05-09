@@ -1,6 +1,5 @@
 import { createCanvasGradient } from "../../functions/canvas.functions";
 import { getRandomNumber } from "../../functions/number.functions";
-import { getObjectProperties } from "../../functions/object.functions";
 import { getCharacterSets } from "../../functions/string.functions";
 
 export class Symbol {
@@ -147,6 +146,7 @@ export class Symbol {
       "numberDigits",
       "symbols",
     ];
+
     const randomPropertyIndex: number = getRandomNumber(
       0,
       characterSetsProperties.length - 1

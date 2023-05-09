@@ -193,6 +193,7 @@ class MatrixEffect extends HTMLElement {
 
     this.effectHandler.animateSymbols();
 
+    //We limit the framerate of the canvas to 30 FPS
     const FPS: number = 1_000 / 30;
 
     setTimeout(() => {
