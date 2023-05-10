@@ -1,5 +1,3 @@
-import { log } from "./console.functions";
-
 /**
  * Simpler version of `document.getElementsByClassName()`
  * Selects all elements with a given class name inside a given container or the whole document.
@@ -213,7 +211,6 @@ export function replaceChildInParent(
   newChild: any,
   oldChild: any
 ): void {
-  log(parentElement, newChild, oldChild);
   oldChild.remove();
   appendChildToParent(newChild, parentElement);
   // return parentElement.replaceWith(newChild, oldChild);

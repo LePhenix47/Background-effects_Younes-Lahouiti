@@ -251,16 +251,13 @@ class MovingParticles extends HTMLElement {
     oldValue: string,
     newValue: string
   ): void {
-    const webComponent: HTMLElement = selectQuery("moving-particles");
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = newValue === "true";
         if (isPlaying) {
           this.animateCanvas();
-          removeClass(webComponent, "hide");
         } else {
           this.cancelCanvasAnimation();
-          addClass(webComponent, "hide");
         }
         //…
         break;
