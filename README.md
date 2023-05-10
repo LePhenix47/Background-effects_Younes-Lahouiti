@@ -15,6 +15,9 @@
 
 Background Effects is a mini-personal project that aims to provide users with a collection of visually appealing background effects that can be used in their web projects. The project leverages various CSS and JavaScript techniques to create unique and dynamic backgrounds that can enhance the user experience.
 
+You can view the result in this link:
+<https://lephenix47.github.io/Background-effects_Younes-Lahouiti/>
+
 ## 2. Technologies Used
 
 - HTML
