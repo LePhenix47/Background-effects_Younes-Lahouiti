@@ -3,10 +3,6 @@
 .header {
     padding-block: 25px;
 
-    background-color: transparent;
-    backdrop-filter: blur(10px);
-
-    box-shadow: inset 0 0 0 0 red;
 
     @include center-flex-column(5px);
 
