@@ -17,6 +17,16 @@
 
         border-radius: 100vmax;
 
-        filter: url(#distortion)
+        filter: url(#distortion);
+
+        @include mobile-only {
+            width: 75%;
+            font-size: 32px;
+        }
+
+        @include tablet-only {
+            width: 65%;
+            font-size: 38px;
+        }
     }
 }
