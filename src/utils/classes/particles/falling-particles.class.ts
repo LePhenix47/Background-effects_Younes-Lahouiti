@@ -191,11 +191,9 @@ export class FallingParticle {
       this.x < this.titleDomRect.x + this.titleDomRect.width &&
       this.x > this.titleDomRect.x;
 
-    //Temporary solution
-    const bodge = 110 - this.radius;
     const hasSameTopYCoordsOfTitle: boolean =
-      this.y < this.titleDomRect.y - bodge + this.titleDomRect.height &&
-      this.y > this.titleDomRect.y - bodge;
+      this.y < 0.75 * this.titleDomRect.y - 40 + this.titleDomRect.height &&
+      this.y > 0.75 * this.titleDomRect.y - 40;
 
     const hasHitTopOfTitle: boolean =
       isBetweenXCoordsOfTitle && hasSameTopYCoordsOfTitle;

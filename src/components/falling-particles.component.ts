@@ -26,11 +26,12 @@ const fallingParticlesCssStyle: string = /* css */ `
  }
 
  .web-component__title{
-  position: relative;
+  position: absolute;
 
   inset:50%;
 
   width: 50%;
+  height: 75px;
   translate: -50% -50%;
 
   text-align: center;
