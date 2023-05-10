@@ -78,7 +78,7 @@ export class MovingParticle {
     this.x = getRandomNumber(0, width);
     this.y = getRandomNumber(0, height);
 
-    this.radius = getRandomNumber(0.5, 3);
+    this.radius = getRandomNumber(0.5, 5);
 
     this.vectorX = getRandomNumber(-5, 5) / 2;
 

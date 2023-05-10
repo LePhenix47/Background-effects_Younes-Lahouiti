@@ -80,9 +80,9 @@ export class MetaballParticle {
 
     this.radius = getRandomNumber(20, 50);
 
-    this.vectorX = getRandomNumber(-0.5, 0.5);
+    this.vectorX = getRandomNumber(-15, 15) / this.radius;
 
-    this.vectorY = getRandomNumber(-0.5, 0.5);
+    this.vectorY = getRandomNumber(-15, 15) / this.radius;
   }
 
   /**
