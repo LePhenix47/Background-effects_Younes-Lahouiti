@@ -65,6 +65,17 @@
     gap: $gap;
 }
 
+@mixin grid-center {
+    justify-items: center;
+    align-content: center;
+}
+
+
+@mixin grid-auto($rows: auto, $columns: auto) {
+    grid-auto-rows: $rows;
+    grid-auto-columns: $columns;
+}
+
 //Mixin to center in the middle
 @mixin absolute-center {
     translate: -50% -50%;

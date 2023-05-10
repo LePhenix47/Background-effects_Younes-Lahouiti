@@ -23,5 +23,81 @@
         width: 100%;
     }
 
-    &__form {}
+    &__form {
+        padding: 0 15px;
+    }
+
+    &__fieldset {
+        @include center-flex;
+    }
+
+    &__legend {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+
+        padding: 10px;
+    }
+
+    &__controls {
+        width: 100%;
+
+        @include grid(2, 3, 10px);
+        @include grid-auto;
+
+    }
+
+    &__input-label {
+        margin-left: 25px;
+    }
+
+    &__label {
+        position: relative;
+
+        margin-left: 10px;
+
+        &::before {
+            content: "";
+
+            position: absolute;
+
+            left: -20px;
+            top: 15%;
+
+            scale: 0%;
+            transition: scale 350ms ease-in-out;
+
+            background-color: currentColor;
+
+            height: 10px;
+            width: 10px;
+
+            border-radius: 50%;
+
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: -8%;
+            left: -25.25px;
+
+            height: 20px;
+            width: 20px;
+
+            border: 2px solid;
+            border-radius: 50%;
+
+            background-color: transparent;
+        }
+    }
+
+    &__input {
+        &:checked+label::before {
+            content: "";
+            scale: 100%;
+
+        }
+    }
+
 }
