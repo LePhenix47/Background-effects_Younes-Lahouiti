@@ -50,14 +50,11 @@ addEventListeners();
  * @param {Event} event - The event object
  */
 function setBackgroundEffect(event: Event) {
-  log("change", event.target);
   //@ts-ignore
   const labelOfInput = event.target.nextElementSibling;
 
   let webComponentName: string = getWebComponentName(labelOfInput.innerText);
   createAndInsertWebComponent(webComponentName, indexEffectElement);
-
-  log({ labelOfInput, webComponentName });
 }
 
 /**
@@ -85,7 +82,12 @@ function createAndInsertWebComponent(
   }
 }
 
-function getWebComponentName(labelText) {
+/**
+ * Get the name of the web component based on the label text
+ * @param {string} labelText - The text of the label element
+ * @returns {string} - The name of the web component
+ */
+function getWebComponentName(labelText: string): string {
   let webComponentName: string = formatText(labelText, "lowercase");
   webComponentName = replaceText(webComponentName, " ", "-");
   return webComponentName;

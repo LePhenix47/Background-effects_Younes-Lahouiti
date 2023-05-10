@@ -239,7 +239,6 @@ class MatrixEffect extends HTMLElement {
     const parsedOldValue = parseToJS(oldValue);
     const parsedNewValue = parseToJS(newValue);
 
-    log("New value:", parsedNewValue);
     switch (name) {
       case "is-playing": {
         const isPlaying: boolean = !!parsedNewValue;
