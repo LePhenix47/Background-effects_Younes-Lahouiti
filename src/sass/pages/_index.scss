@@ -42,9 +42,16 @@
     &__controls {
         width: 100%;
 
-        @include grid(2, 3, 10px);
         @include grid-auto;
+        @include grid(2, 3, 10px);
 
+        @include tablet-only {
+            @include grid(3, 2, 15px)
+        }
+
+        @include mobile-only {
+            @include grid(6, 1, 20px)
+        }
     }
 
     &__input-label {

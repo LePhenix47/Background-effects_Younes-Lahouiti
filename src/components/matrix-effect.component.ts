@@ -114,7 +114,7 @@ class MatrixEffect extends HTMLElement {
      * @type {MovingParticlesCreator}
      */
     this.effectHandler = new MatrixEffectCreator(this.canvas);
-    this.resizeCanvas();
+    // this.resizeCanvas();
   }
 
   /**
@@ -149,6 +149,7 @@ class MatrixEffect extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
+    this.resizeCanvas();
     this.effectHandler = new MatrixEffectCreator(this.canvas);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);

@@ -123,7 +123,7 @@ class FireEffect extends HTMLElement {
      * @type {MovingParticlesCreator}
      */
     this.effectHandler = new FireEffectCreator(this.canvas, 50);
-    this.resizeCanvas();
+    // this.resizeCanvas();
   }
 
   /**
@@ -158,6 +158,7 @@ class FireEffect extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
+    this.resizeCanvas();
     this.effectHandler = new FireEffectCreator(this.canvas, 50);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);

@@ -1,8 +1,63 @@
+import { log } from "./console.functions";
+
+/**
+ * Simpler version of `document.getElementsByClassName()`
+ * Selects all elements with a given class name inside a given container or the whole document.
+ *
+ * @param {string} className - The class name of the elements to select.
+ * @param {any} container - The parent element to search within.
+ *
+ * @returns {any[]} A collection of elements with the specified class name.
+ */
+export function selectByClass(className: string, container?: any): any[] {
+  const hasNoParentContainer = !container;
+  if (hasNoParentContainer) {
+    return Array.from(document.getElementsByClassName(className));
+  }
+
+  /**
+   * We check if it's a web component, they always have a hyphen in their tag name
+   */
+  const containerIsWebComponent: boolean = container?.tagName?.includes("-");
+
+  if (containerIsWebComponent) {
+    return Array.from(container.shadowRoot.getElementsByClassName(className));
+  }
+  return Array.from(container.getElementsByClassName(className));
+}
+
+/**
+ * Simpler version of `document.getElementById()`
+ * Selects an element with a given ID inside a given container or the whole document.
+ *
+ * @param {string} id - The ID of the element to select.
+ * @param {any} container - The parent element to search within.
+ *
+ * @returns {any} The element with the specified ID.
+ */
+export function selectById(id: string, container?: any): any {
+  const hasNoParentContainer = !container;
+  if (hasNoParentContainer) {
+    return document.getElementById(id);
+  }
+
+  /**
+   * We check if it's a web component, they always have a hyphen in their tag name
+   */
+  const containerIsWebComponent: boolean = container?.tagName?.includes("-");
+
+  if (containerIsWebComponent) {
+    return container.shadowRoot.getElementById(id);
+  }
+  return container.getElementById(id);
+}
+
 /**
  * A simplified version of `document.querySelector()`
  *
  * @param {string} query - CSS query of the HTML Element to select
  * @param {any} container - HTML Element to select the query from
+ *
  * @returns  - The element selected or `null` if the element doesn't exist
  */
 
@@ -144,6 +199,24 @@ export function appendChildToParent(
   parentElement: any
 ): HTMLElement {
   return parentElement.appendChild(childElement);
+}
+
+/**
+ * Replaces an old child element with a new child element in a given parent element
+ * @param {any} parentElement - The parent element where the child will be replaced
+ * @param {any} newChild - The new child element to be inserted
+ * @param {any} oldChild - The old child element to be removed
+ * @returns {void} - The replaced child element
+ */
+export function replaceChildInParent(
+  parentElement: any,
+  newChild: any,
+  oldChild: any
+): void {
+  log(parentElement, newChild, oldChild);
+  oldChild.remove();
+  appendChildToParent(newChild, parentElement);
+  // return parentElement.replaceWith(newChild, oldChild);
 }
 
 /**

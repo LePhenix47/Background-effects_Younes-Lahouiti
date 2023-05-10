@@ -192,7 +192,7 @@ export class FallingParticle {
       this.x > this.titleDomRect.x;
 
     //Temporary solution
-    const bodge = 115 - this.radius;
+    const bodge = 110 - this.radius;
     const hasSameTopYCoordsOfTitle: boolean =
       this.y < this.titleDomRect.y - bodge + this.titleDomRect.height &&
       this.y > this.titleDomRect.y - bodge;

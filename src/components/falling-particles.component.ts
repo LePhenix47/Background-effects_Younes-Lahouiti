@@ -153,7 +153,7 @@ class FallingParticles extends HTMLElement {
       this.titleHeading,
       100
     );
-    this.resizeCanvas();
+    // this.resizeCanvas();
   }
 
   /**
@@ -188,6 +188,7 @@ class FallingParticles extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
+    this.resizeCanvas();
     this.effectHandler = new FallingEffectCreator(
       this.canvas,
       this.titleHeading,

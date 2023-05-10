@@ -125,7 +125,7 @@ class CubeWarp extends HTMLElement {
      * @type {CubeEffectCreator}
      */
     this.effectHandler = new CubeEffectCreator(this.canvas, 10);
-    this.resizeCanvas();
+    // this.resizeCanvas();
   }
 
   /**
@@ -160,6 +160,8 @@ class CubeWarp extends HTMLElement {
    * Called when the element is inserted into the DOM.
    */
   connectedCallback() {
+    this.resizeCanvas();
+
     this.effectHandler = new CubeEffectCreator(this.canvas, 10);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
