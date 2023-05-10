@@ -46,10 +46,13 @@ export class CubeEffectCreator {
    */
   private initialize(): void {
     for (let i = 0; i < this.particlesAmount; i++) {
+      const squareOffset: number = i * 100;
+
       const cubeParticle: CubeParticle = new CubeParticle(
         this.context,
         this.canvas.width,
-        this.canvas.height
+        this.canvas.height,
+        squareOffset
       );
 
       this.particlesArray.push(cubeParticle);

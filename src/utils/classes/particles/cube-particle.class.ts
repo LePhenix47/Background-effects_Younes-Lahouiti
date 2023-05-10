@@ -14,6 +14,8 @@ export class CubeParticle {
   private length: number;
   private rotation: number;
   growthExponent: number;
+  offset: number;
+  colorLightness: number;
 
   /**
    * Creates a new instance of the `CubeParticle` class.
@@ -26,19 +28,23 @@ export class CubeParticle {
   constructor(
     context: CanvasRenderingContext2D,
     width: number,
-    height: number
+    height: number,
+    offset: number
   ) {
     this.context = context;
     this.width = width;
     this.height = height;
+    this.offset = offset;
 
-    this.length = 1;
+    this.length = offset;
     this.growthExponent = 0;
 
     this.x = this.width / 2;
     this.y = this.height / 2;
 
     this.rotation = 0;
+
+    this.colorLightness = 5;
   }
 
   /**
@@ -46,9 +52,10 @@ export class CubeParticle {
    */
   update() {
     this.length += 1 + this.growthExponent;
-    this.rotation += 0.1;
+    this.rotation += 0.5;
 
-    this.growthExponent++;
+    this.growthExponent += 0.1;
+    this.colorLightness++;
 
     this.checkGrowthOverflow();
 
@@ -59,10 +66,13 @@ export class CubeParticle {
    * Resets the squre when it grows too much
    */
   private checkGrowthOverflow() {
-    const isTooBig = this.length >= this.width && this.height;
+    const isTooBig: boolean =
+      this.length >= this.width && this.length >= this.height;
     if (isTooBig) {
       this.length = 1;
       this.growthExponent = 0;
+      this.rotation *= -1;
+      this.colorLightness = 5;
     }
   }
 
@@ -79,14 +89,13 @@ export class CubeParticle {
     this.context.rotate((this.rotation * Math.PI) / 180);
 
     // Set the stroke color and width for the square
-    this.context.strokeStyle = "white";
+    this.context.strokeStyle = `hsl(0deg 0% ${this.colorLightness}%)`;
     this.context.lineWidth = 5;
 
     //Must use variables (not class properties) to compute the center of the square
     const middleSquareX: number = (-1 * this.length) / 2;
     const middleSquareY: number = (-1 * this.length) / 2;
 
-    this.context.strokeStyle = `white`;
     // Draw the square with a stroke
     this.context.strokeRect(
       middleSquareX,

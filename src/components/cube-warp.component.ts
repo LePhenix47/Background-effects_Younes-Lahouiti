@@ -191,7 +191,7 @@ class CubeWarp extends HTMLElement {
     //We cancel the animation loop
     this.cancelCanvasAnimation();
     //We create a new effect
-    this.effectHandler = new CubeEffectCreator(this.canvas, 1);
+    this.effectHandler = new CubeEffectCreator(this.canvas, 10);
 
     //We restart the animation loop
     this.animateCanvas();
