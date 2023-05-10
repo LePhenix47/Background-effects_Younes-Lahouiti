@@ -44,18 +44,18 @@ export class CubeParticle {
 
     this.rotation = 0;
 
-    this.colorLightness = 5;
+    this.colorLightness = 0;
   }
 
   /**
    * Updates the state of the cube particle.
    */
   update() {
-    this.length += 1 + this.growthExponent;
+    this.length += this.growthExponent;
     this.rotation += 0.5;
 
-    this.growthExponent += 0.1;
-    this.colorLightness++;
+    this.growthExponent += 0.075;
+    this.colorLightness += 0.75;
 
     this.checkGrowthOverflow();
 
@@ -71,8 +71,8 @@ export class CubeParticle {
     if (isTooBig) {
       this.length = 1;
       this.growthExponent = 0;
-      this.rotation *= -1;
-      this.colorLightness = 5;
+      this.rotation = 0;
+      this.colorLightness = 0;
     }
   }
 

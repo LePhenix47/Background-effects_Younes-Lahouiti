@@ -45,8 +45,9 @@ export class CubeEffectCreator {
    * Initializes the `particlesArray` with `CubeParticle` objects.
    */
   private initialize(): void {
+    let squareOffset: number = 0;
     for (let i = 0; i < this.particlesAmount; i++) {
-      const squareOffset: number = i * 100;
+      squareOffset = i * 100;
 
       const cubeParticle: CubeParticle = new CubeParticle(
         this.context,
@@ -57,7 +58,6 @@ export class CubeEffectCreator {
 
       this.particlesArray.push(cubeParticle);
     }
-    table(this.particlesArray);
   }
 
   /**
