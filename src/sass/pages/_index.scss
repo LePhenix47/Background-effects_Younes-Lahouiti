@@ -10,7 +10,18 @@
     }
 
     &__effect {
-        min-height: 75vh;
+        min-height: 500px;
+
+        @include desktop-only {
+            min-height: 750px;
+
+        }
+
+        @include mobile-only {
+            min-height: 75vh;
+        }
+
+
         position: relative;
 
         outline: 2px solid currentColor;
