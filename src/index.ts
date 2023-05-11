@@ -7,6 +7,8 @@ import "./components/fire-effect.component";
 import "./components/matrix-effect.component";
 import "./components/metaballs-effect.component";
 import "./components/moving-particles.component";
+import "./components/network-particles.component";
+import "./components/neon-particles.component";
 
 /**
  * Import utility functions
