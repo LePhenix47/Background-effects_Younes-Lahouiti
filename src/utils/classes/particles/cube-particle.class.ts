@@ -1,3 +1,4 @@
+import { rotateCanvas } from "../../functions/canvas.functions";
 import { log } from "../../functions/console.functions";
 
 /**
@@ -82,11 +83,14 @@ export class CubeParticle {
   draw() {
     this.context.save();
 
-    // Translate to the center of the canvas
-    this.context.translate(this.width / 2, this.height / 2);
-
-    // Rotate the canvas by the rotation angle in radians
-    this.context.rotate((this.rotation * Math.PI) / 180);
+    // Translate to the center of the canvas AND
+    // otate the canvas by the rotation angle in radians
+    rotateCanvas(
+      this.context,
+      this.width / 2,
+      this.height / 2,
+      (this.rotation * Math.PI) / 180
+    );
 
     // Set the stroke color and width for the square
     this.context.strokeStyle = `hsl(0deg 0% ${this.colorLightness}%)`;

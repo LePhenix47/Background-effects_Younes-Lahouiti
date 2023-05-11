@@ -112,3 +112,25 @@ export function createCircle(
 ): void {
   canvasContext.arc(startX, startY, radius, 0, Math.PI * 2);
 }
+
+/**
+ * Rotates the canvas context by a specified angle around a given point.
+ *
+ * ⚠ Warning: This function must be used between a `save()` and `restore()` method
+ *
+ * @param {CanvasRenderingContext2D} canvasContext - The 2D canvas rendering context.
+ * @param {number} startX - The x-coordinate of the point around which to rotate.
+ * @param {number} startY - The y-coordinate of the point around which to rotate.
+ * @param {number} rotation - The angle of rotation in radians.
+ *
+ * @returns {void}
+ */
+export function rotateCanvas(
+  canvasContext: CanvasRenderingContext2D,
+  startX: number,
+  startY: number,
+  rotation: number
+): void {
+  canvasContext.translate(startX, startY);
+  canvasContext.rotate(rotation);
+}

@@ -1,4 +1,4 @@
-import { MovingParticlesCreator } from "../utils/classes/effects/moving-particles-creator.class";
+import { NeonParticlesCreator } from "../utils/classes/effects/neon-effect-creator.class";
 import {
   get2DContext,
   setCanvasSize,
@@ -15,10 +15,10 @@ import {
   WebComponentCssDarkTheme,
 } from "../utils/variables/web-components.variables";
 
-const movingParticlesTemplateElement: HTMLTemplateElement =
+const neonParticlesTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
-const movingParticlesCssStyle: string = /* css */ `
+const neonParticlesCssStyle: string = /* css */ `
   .web-component__canvas{
     position: absolute;
 
@@ -35,28 +35,28 @@ const movingParticlesCssStyle: string = /* css */ `
     }
 }
 `;
-const movingParticlesTemplateHtml: string = /*html */ `
+const neonParticlesTemplateHtml: string = /*html */ `
     <canvas class="web-component__canvas"></canvas>
 `;
 
-movingParticlesTemplateElement.innerHTML = /*html */ `
+neonParticlesTemplateElement.innerHTML = /*html */ `
   <style>
     /* Reset */
     ${WebComponentCssVariables}
     ${WebComponentCssReset}
     ${WebComponentCssDarkTheme}
     /* Actual style */
-    ${movingParticlesCssStyle}
+    ${neonParticlesCssStyle}
   </style>
   
-  ${movingParticlesTemplateHtml}
+  ${neonParticlesTemplateHtml}
 `;
 
 /**
  * A custom element that creates and animates moving particles in a canvas element.
  * @extends HTMLElement
  */
-class MovingParticles extends HTMLElement {
+class NeonParticles extends HTMLElement {
   /**
    * The canvas element used for rendering the particles.
    * @type {HTMLCanvasElement}
@@ -71,9 +71,9 @@ class MovingParticles extends HTMLElement {
 
   /**
    * The object responsible for creating and animating the particles.
-   * @type {MovingParticlesCreator}
+   * @type {NeonParticlesCreator}
    */
-  effectHandler: MovingParticlesCreator;
+  effectHandler: NeonParticlesCreator;
 
   /**
    * The ID of the current animation frame. Useful to cancel the animation loop when needed
@@ -82,7 +82,7 @@ class MovingParticles extends HTMLElement {
   animationId: number;
 
   /**
-   * Creates a new instance of the `MovingParticles` class.
+   * Creates a new instance of the `NeonParticles` class.
    *
    * @constructor
    */
@@ -109,7 +109,7 @@ class MovingParticles extends HTMLElement {
 
     //We clone the template
     const clonedTemplate: Node =
-      movingParticlesTemplateElement.content.cloneNode(true);
+      neonParticlesTemplateElement.content.cloneNode(true);
     //We add it as a child of our web component
     shadowRoot.appendChild(clonedTemplate);
 
@@ -127,9 +127,9 @@ class MovingParticles extends HTMLElement {
 
     /**
      * The object responsible for creating and animating the particles.
-     * @type {MovingParticlesCreator}
+     * @type {NeonParticlesCreator}
      */
-    this.effectHandler = new MovingParticlesCreator(this.canvas, 100);
+    this.effectHandler = new NeonParticlesCreator(this.canvas, 100);
     // this.resizeCanvas();
   }
 
@@ -166,7 +166,7 @@ class MovingParticles extends HTMLElement {
    */
   connectedCallback() {
     this.resizeCanvas();
-    this.effectHandler = new MovingParticlesCreator(this.canvas, 100);
+    this.effectHandler = new NeonParticlesCreator(this.canvas, 100);
 
     setCanvasSize(this.canvas, this.clientWidth, this.clientHeight);
 
@@ -199,7 +199,7 @@ class MovingParticles extends HTMLElement {
     //We cancel the animation loop
     this.cancelCanvasAnimation();
     //We create a new effect
-    this.effectHandler = new MovingParticlesCreator(this.canvas, 100);
+    this.effectHandler = new NeonParticlesCreator(this.canvas, 100);
     //We restart the animation loop
     this.animateCanvas();
   }
@@ -269,4 +269,4 @@ class MovingParticles extends HTMLElement {
   }
 }
 
-customElements.define("neon-particles", MovingParticles);
+customElements.define("neon-particles", NeonParticles);
