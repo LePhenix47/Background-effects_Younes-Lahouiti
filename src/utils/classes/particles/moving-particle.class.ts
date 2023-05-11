@@ -83,6 +83,12 @@ export class MovingParticle {
     this.vectorX = getRandomNumber(-5, 5) / 2;
 
     this.vectorY = getRandomNumber(-5, 5) / 2;
+
+    const vectorsAreNull: boolean = this.vectorX === 0 || this.vectorY === 0;
+    if (vectorsAreNull) {
+      this.vectorX = getRandomNumber(1, 5);
+      this.vectorY = getRandomNumber(-5, -1);
+    }
   }
 
   /**

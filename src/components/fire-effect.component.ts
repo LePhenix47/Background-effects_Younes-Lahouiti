@@ -225,6 +225,7 @@ class FireEffect extends HTMLElement {
    * @returns {void}
    */
   disconnectedCallback(): void {
+    this.cancelCanvasAnimation();
     window.removeEventListener("resize", this.resetCanvasToMatchScreen);
   }
 
